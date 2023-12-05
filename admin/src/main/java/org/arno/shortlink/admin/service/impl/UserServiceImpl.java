@@ -18,8 +18,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery(UserDO.class)
                 .eq(UserDO::getUsername, username);
         UserDO userDO = baseMapper.selectOne(queryWrapper);
+        if (userDO == null) {
+            // 返回 null 或者一个空的 UserResponseDTO 对象
+            return null; // 或者 new UserResponseDTO();
+        }
         UserResponseDTO result = new UserResponseDTO();
         BeanUtils.copyProperties(userDO, result);
         return result;
     }
+
 }

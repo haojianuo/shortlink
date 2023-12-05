@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ApifoxUploaderProjectSetting">
+    <option name="apifoxAccessToken" value="APS-e6Pi5dlxBMbWLVpuOjlbRiSGFBBsw2XT" />
+    <option name="apifoxProjectIds">
+      <array>
+        <option value="EasyDeacon:3241674" />
+        <option value="my-project-backend:3241674" />
+        <option value="diet_helper:3444769" />
+      </array>
+    </option>
+    <option name="yapiTokens" value="" />
+  </component>
+</project>
