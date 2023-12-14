@@ -2,6 +2,7 @@ package org.arno.shortlink.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
+import org.arno.shortlink.admin.common.convention.result.Results;
 import org.arno.shortlink.admin.common.enums.UserErrorCodeEnum;
 import org.arno.shortlink.admin.dto.response.UserResponseDTO;
 import org.arno.shortlink.admin.service.UserService;
@@ -22,9 +23,11 @@ public class UserController {
     public Result<UserResponseDTO> getUserByUsername(@PathVariable("username") String username) {
         UserResponseDTO userResponseDTO = userService.getUserByUsername(username);
         if (userResponseDTO == null) {
-            return new Result<UserResponseDTO>().setCode(UserErrorCodeEnum.USER_NULL.code()).setMessage(UserErrorCodeEnum.USER_NULL.message());
+            return new Result<UserResponseDTO>()
+                    .setCode(UserErrorCodeEnum.USER_NULL.code())
+                    .setMessage(UserErrorCodeEnum.USER_NULL.message());
         } else {
-            return new Result<UserResponseDTO>().setCode("0").setData(userResponseDTO);
+            return Results.success(userResponseDTO);
         }
     }
 }
