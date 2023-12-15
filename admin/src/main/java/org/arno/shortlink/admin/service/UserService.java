@@ -6,4 +6,6 @@ import org.arno.shortlink.admin.dto.response.UserResponseDTO;
 
 public interface UserService extends IService<UserDO> {
     UserResponseDTO getUserByUsername(String username);
+
+    Boolean hasUsername(String username);
 }
