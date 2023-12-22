@@ -38,17 +38,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public Boolean hasUsername(String username) {
-        return userRegisterCachePenetrationBloomFilter.contains(username);
+        return !userRegisterCachePenetrationBloomFilter.contains(username);
     }
 
     @Override
     public void register(UserRegisterRequestDTO requestParam) {
-        if (hasUsername(requestParam.getUsername())) {
+        if (!hasUsername(requestParam.getUsername())) {
             throw new ClientException(USER_NAME_EXIST);
         }
         int inserted = baseMapper.insert(BeanUtil.toBean(requestParam, UserDO.class));
         if (inserted < 1) {
             throw new ClientException(USER_SAVE_ERROR);
         }
+        userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
     }
 }
