@@ -4,8 +4,11 @@ import cn.hutool.core.bean.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
 import org.arno.shortlink.admin.common.convention.result.Results;
+import org.arno.shortlink.admin.dto.request.UserLoginRequestDTO;
 import org.arno.shortlink.admin.dto.request.UserRegisterRequestDTO;
+import org.arno.shortlink.admin.dto.request.UserUpdateRequestDTO;
 import org.arno.shortlink.admin.dto.response.UserActualResponseDTO;
+import org.arno.shortlink.admin.dto.response.UserLoginResponseDTO;
 import org.arno.shortlink.admin.dto.response.UserResponseDTO;
 import org.arno.shortlink.admin.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +50,31 @@ public class UserController {
     public Result<Void> register(@RequestBody UserRegisterRequestDTO requestParam) {
         userService.register(requestParam);
         return Results.success();
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @PutMapping("/api/short-link/v1/user")
+    public Result<Void> update(@RequestBody UserUpdateRequestDTO requestParam) {
+        userService.update(requestParam);
+        return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/api/short-link/v1/user/login")
+    public Result<UserLoginResponseDTO> login(@RequestBody UserLoginRequestDTO requestParam) {
+
+        return Results.success(userService.login(requestParam));
+    }
+
+    /**
+     * 校验用户登录
+     */
+    @GetMapping("/api/short-link/v1/user/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
+        return Results.success(userService.checkLogin(username,token));
     }
 }
