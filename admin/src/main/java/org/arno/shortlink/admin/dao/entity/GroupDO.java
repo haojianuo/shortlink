@@ -1,15 +1,22 @@
 package org.arno.shortlink.admin.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.arno.shortlink.admin.common.database.BaseDO;
 
 import java.util.Date;
 
 @Data
 @TableName("t_group")
-public class GroupDO {
-    private static final long serialVersionUID = 1L;
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class GroupDO  extends BaseDO {
     /**
      * id
      */
@@ -30,18 +37,4 @@ public class GroupDO {
      */
     private String username;
 
-    /**
-     * create_time
-     */
-    private Date createTime;
-
-    /**
-     * update_time
-     */
-    private Date updateTime;
-
-    /**
-     * del_flag
-     */
-    private Integer delFlag;
 }
