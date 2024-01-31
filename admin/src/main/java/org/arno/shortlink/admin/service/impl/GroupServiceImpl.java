@@ -2,12 +2,14 @@ package org.arno.shortlink.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import groovy.util.logging.Slf4j;
 import org.arno.shortlink.admin.common.biz.user.UserContext;
 import org.arno.shortlink.admin.dao.entity.GroupDO;
 import org.arno.shortlink.admin.dao.mapper.GroupMapper;
+import org.arno.shortlink.admin.dto.request.ShortLinkGroupUpdateReqDTO;
 import org.arno.shortlink.admin.dto.response.ShortLinkGroupResponseDTO;
 import org.arno.shortlink.admin.service.GroupService;
 import org.arno.shortlink.admin.toolkit.RandomGenerator;
@@ -43,6 +45,17 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
                 .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
         List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
         return BeanUtil.copyToList(groupDOList, ShortLinkGroupResponseDTO.class);
+    }
+
+    @Override
+    public void updateGroup(ShortLinkGroupUpdateReqDTO requestParam) {
+        LambdaUpdateWrapper<GroupDO> updateWrapper = Wrappers.lambdaUpdate(GroupDO.class)
+                .eq(GroupDO::getGid, requestParam.getGid())
+                .eq(GroupDO::getUsername, UserContext.getUsername())
+                .eq(GroupDO::getDelFlag, 0);
+        GroupDO groupDO = new GroupDO();
+        groupDO.setName(requestParam.getName());
+        baseMapper.update(groupDO, updateWrapper);
     }
 
     private boolean hasGid(String gid) {
