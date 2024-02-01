@@ -9,6 +9,7 @@ import groovy.util.logging.Slf4j;
 import org.arno.shortlink.admin.common.biz.user.UserContext;
 import org.arno.shortlink.admin.dao.entity.GroupDO;
 import org.arno.shortlink.admin.dao.mapper.GroupMapper;
+import org.arno.shortlink.admin.dto.request.ShortLinkGroupSortReqDTO;
 import org.arno.shortlink.admin.dto.request.ShortLinkGroupUpdateReqDTO;
 import org.arno.shortlink.admin.dto.response.ShortLinkGroupResponseDTO;
 import org.arno.shortlink.admin.service.GroupService;
@@ -68,6 +69,20 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         groupDO.setDelFlag(1);
         baseMapper.update(groupDO, updateWrapper);
     }
+
+        @Override
+        public void sortGroup(List<ShortLinkGroupSortReqDTO> reqDTOList) {
+            reqDTOList.forEach(reqDTO -> {
+                GroupDO groupDO = GroupDO.builder()
+                        .sortOrder(reqDTO.getSortOrder())
+                        .build();
+                LambdaUpdateWrapper<GroupDO> updateWrapper = Wrappers.lambdaUpdate(GroupDO.class)
+                        .eq(GroupDO::getGid, reqDTO.getGid())
+                        .eq(GroupDO::getUsername, UserContext.getUsername())
+                        .eq(GroupDO::getDelFlag, 0);
+                baseMapper.update(groupDO, updateWrapper);
+            });
+        }
 
     private boolean hasGid(String gid) {
         LambdaQueryWrapper<GroupDO> queryWrapper = Wrappers.lambdaQuery(GroupDO.class)

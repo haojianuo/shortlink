@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
 import org.arno.shortlink.admin.common.convention.result.Results;
 import org.arno.shortlink.admin.dto.request.ShortLinkGroupSaveRequestDTO;
+import org.arno.shortlink.admin.dto.request.ShortLinkGroupSortReqDTO;
 import org.arno.shortlink.admin.dto.request.ShortLinkGroupUpdateReqDTO;
 import org.arno.shortlink.admin.dto.response.ShortLinkGroupResponseDTO;
 import org.arno.shortlink.admin.service.GroupService;
@@ -36,6 +37,12 @@ public class GroupController {
     @DeleteMapping("/api/short-link/v1/group")
     public Result<Void> deleteGroup(@RequestParam("gid") String gid) {
         groupService.deleteGroup(gid);
+        return Results.success();
+    }
+
+    @PostMapping("/api/short-link/v1/group/sort")
+    public Result<Void> sortGroup(@RequestBody List<ShortLinkGroupSortReqDTO> reqDTOList) {
+        groupService.sortGroup(reqDTOList);
         return Results.success();
     }
 }
