@@ -17,30 +17,30 @@ import java.util.List;
 public class GroupController {
     private final GroupService groupService;
 
-    @PostMapping("/api/short-link/v1/group")
+    @PostMapping("/api/short-link/admin/v1/group")
     public Result<Void> saveGroup(@RequestBody ShortLinkGroupSaveRequestDTO requestParam) {
         groupService.saveGroup(requestParam.getName());
         return Results.success();
     }
 
-    @GetMapping("/api/short-link/v1/group")
+    @GetMapping("/api/short-link/admin/v1/group")
     public Result<List<ShortLinkGroupResponseDTO>> listGroup() {
         return Results.success(groupService.listGroup());
     }
 
-    @PutMapping("/api/short-link/v1/group")
+    @PutMapping("/api/short-link/admin/v1/group")
     public Result<Void> updateGroup(@RequestBody ShortLinkGroupUpdateReqDTO requestParam) {
         groupService.updateGroup(requestParam);
         return Results.success();
     }
 
-    @DeleteMapping("/api/short-link/v1/group")
+    @DeleteMapping("/api/short-link/admin/v1/group")
     public Result<Void> deleteGroup(@RequestParam("gid") String gid) {
         groupService.deleteGroup(gid);
         return Results.success();
     }
 
-    @PostMapping("/api/short-link/v1/group/sort")
+    @PostMapping("/api/short-link/admin/v1/group/sort")
     public Result<Void> sortGroup(@RequestBody List<ShortLinkGroupSortReqDTO> reqDTOList) {
         groupService.sortGroup(reqDTOList);
         return Results.success();
