@@ -2,12 +2,18 @@ package org.arno.shortlink.project.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.arno.shortlink.project.common.database.BaseDO;
 
 import java.util.Date;
 @Data
+@Builder
 @TableName("t_link")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShortLinkDO extends BaseDO {
     /**
      * id
