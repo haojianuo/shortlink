@@ -2,6 +2,7 @@ package org.arno.shortlink.project.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,9 @@ import org.arno.shortlink.project.common.convention.exception.ServiceException;
 import org.arno.shortlink.project.dao.entity.ShortLinkDO;
 import org.arno.shortlink.project.dao.mapper.ShortLinkMapper;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.ShortLinkService;
 import org.arno.shortlink.project.toolkit.HashUtil;
 import org.redisson.api.RBloomFilter;
@@ -42,12 +45,12 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .build();
         try {
             baseMapper.insert(shortLinkDO);
-        }catch (DuplicateKeyException ex){
+        } catch (DuplicateKeyException ex) {
             LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
-                            .eq(ShortLinkDO::getFullShortUrl,fullShortUrl);
+                    .eq(ShortLinkDO::getFullShortUrl, fullShortUrl);
             ShortLinkDO hasShortLinkDO = baseMapper.selectOne(queryWrapper);
-            if (hasShortLinkDO != null){
-                log.warn("短链接{}已存在，重试生成短链接",fullShortUrl);
+            if (hasShortLinkDO != null) {
+                log.warn("短链接{}已存在，重试生成短链接", fullShortUrl);
                 throw new ServiceException("短链接已存在");
             }
         }
@@ -57,6 +60,17 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .fullShortUrl(shortLinkDO.getFullShortUrl())
                 .gid(shortLinkDO.getGid())
                 .build();
+    }
+
+    @Override
+    public IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam) {
+        LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
+                .eq(ShortLinkDO::getGid, requestParam.getGid())
+                .eq(ShortLinkDO::getEnableStatus, 0)
+                .eq(ShortLinkDO::getDelFlag, 0)
+                .orderByDesc(ShortLinkDO::getCreateTime);
+        IPage<ShortLinkDO> resultPage = baseMapper.selectPage(requestParam, queryWrapper);
+        return resultPage.convert(each -> BeanUtil.toBean(each, ShortLinkPageRespDTO.class));
     }
 
     private String generateSuffix(ShortLinkCreateReqDTO requestParam) {
