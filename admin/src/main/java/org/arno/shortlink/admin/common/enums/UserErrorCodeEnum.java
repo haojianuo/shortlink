@@ -3,6 +3,8 @@ package org.arno.shortlink.admin.common.enums;
 import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
 
 public enum UserErrorCodeEnum implements IErrorCode {
+
+    USER_TOKEN_FAIL("A000200", "用户token验证失败"),
     USER_NULL("B000200", "用户不存在"),
 
     USER_NAME_EXIST("B000201", "用户名已存在"),
