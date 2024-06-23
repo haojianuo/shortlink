@@ -1,5 +1,5 @@
 server:
-  port: 8010
+  port: 7010
 spring:
   datasource:
     # ShardingSphere 对 Driver 自定义，实现分库分表等隐藏逻辑

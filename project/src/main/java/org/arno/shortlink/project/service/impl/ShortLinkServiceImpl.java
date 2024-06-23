@@ -2,6 +2,7 @@ package org.arno.shortlink.project.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,6 +14,7 @@ import org.arno.shortlink.project.dao.mapper.ShortLinkMapper;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.ShortLinkService;
 import org.arno.shortlink.project.toolkit.HashUtil;
@@ -20,11 +22,17 @@ import org.redisson.api.RBloomFilter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLinkDO> implements ShortLinkService {
     private final RBloomFilter<String> shortUriCreateCachePenetrationBloomFilter;
+    private final ShortLinkMapper shortLinkMapper;
 
 
     @Override
@@ -71,6 +79,27 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 .orderByDesc(ShortLinkDO::getCreateTime);
         IPage<ShortLinkDO> resultPage = baseMapper.selectPage(requestParam, queryWrapper);
         return resultPage.convert(each -> BeanUtil.toBean(each, ShortLinkPageRespDTO.class));
+    }
+
+    @Override
+    public List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam) {
+        QueryWrapper<ShortLinkDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("gid", requestParam)
+                .eq("enable_status", 0)
+                .eq("del_flag", 0)
+                .groupBy("gid")
+                .select("gid as gid", "count(*) as count");
+        // 手动映射字段名
+        List<ShortLinkGroupCountQueryRespDTO> result = new ArrayList<>();
+        for (Map<String, Object> map : shortLinkMapper.selectMaps(queryWrapper)) {
+            ShortLinkGroupCountQueryRespDTO dto = new ShortLinkGroupCountQueryRespDTO();
+            dto.setGid((String) map.get("gid"));
+            dto.setShortLinkCount(((Long) map.get("count")).intValue()); // 处理 count 字段为 Long 类型的情况
+            result.add(dto);
+        }
+
+        return result;
+
     }
 
     private String generateSuffix(ShortLinkCreateReqDTO requestParam) {

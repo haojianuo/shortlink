@@ -7,9 +7,12 @@ import org.arno.shortlink.project.common.convention.result.Results;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
+import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.ShortLinkService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +27,10 @@ public class ShortLinkController {
     @GetMapping("/api/short-link/v1/page")
     public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkPageReqDTO requestParam) {
         return Results.success(shortLinkService.pageShortLink(requestParam));
+    }
+
+    @GetMapping("/api/short-link/v1/count")
+    public Result<List<ShortLinkGroupCountQueryRespDTO>> listGroupCount(@RequestParam List<String> requestParam) {
+        return Results.success(shortLinkService.listGroupShortLinkCount(requestParam));
     }
 }

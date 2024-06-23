@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ApifoxUploaderProjectSetting">
-    <option name="apifoxAccessToken" value="APS-e6Pi5dlxBMbWLVpuOjlbRiSGFBBsw2XT" />
-    <option name="newApifoxProjectIds">
+    <option name="apiAccessToken" value="APS-e6Pi5dlxBMbWLVpuOjlbRiSGFBBsw2XT" />
+    <option name="apiProjectIds">
       <array>
         <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0AApFYXN5RGVhY29ucHBwcHBwcHBwcHBwdAAAdAAJ5qC555uu5b2VdAABMHQABzMyNDE2NzRxAH4AB3EAfgAFcQB+AAY=&lt;/byte-array&gt;" />
         <option value="&lt;byte-array&gt;rO0ABXNyADZjb20uaXRhbmdjZW50LmlkZWEucGx1Z2luLmFwaS5hY2NvdW50LlByb2plY3RBbmRNb2R1bGUAAAAAAAAAAQIAFVoABmVuYWJsZUwACG1vZHVsZUlkdAASTGphdmEvbGFuZy9TdHJpbmc7TAAGb3RoZXIxcQB+AAFMAAdvdGhlcjEwcQB+AAFMAAdvdGhlcjExcQB+AAFMAAdvdGhlcjEycQB+AAFMAAZvdGhlcjJxAH4AAUwABm90aGVyM3EAfgABTAAGb3RoZXI0cQB+AAFMAAZvdGhlcjVxAH4AAUwABm90aGVyNnEAfgABTAAGb3RoZXI3cQB+AAFMAAZvdGhlcjhxAH4AAUwABm90aGVyOXEAfgABTAAKcGF0aEJlZm9yZXEAfgABTAANcHJvamVjdEZvbGRlcnEAfgABTAAPcHJvamVjdEZvbGRlcklkcQB+AAFMAAlwcm9qZWN0SWRxAH4AAUwAC3Byb2plY3ROYW1lcQB+AAFMAAxzY2hlbWFGb2xkZXJxAH4AAUwACHNjaGVtYUlkcQB+AAF4cAF0ABJteS1wcm9qZWN0LWJhY2tlbmRwcHBwcHBwcHBwcHB0AAB0AAnmoLnnm67lvZV0AAEwdAAHMzI0MTY3NHEAfgAHcQB+AAVxAH4ABg==&lt;/byte-array&gt;" />
