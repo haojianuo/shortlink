@@ -16,6 +16,7 @@ import org.arno.shortlink.admin.dto.request.UserRegisterRequestDTO;
 import org.arno.shortlink.admin.dto.request.UserUpdateRequestDTO;
 import org.arno.shortlink.admin.dto.response.UserLoginResponseDTO;
 import org.arno.shortlink.admin.dto.response.UserResponseDTO;
+import org.arno.shortlink.admin.service.GroupService;
 import org.arno.shortlink.admin.service.UserService;
 import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
@@ -39,6 +40,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
     private final RedissonClient redissonClient;
     private final StringRedisTemplate stringRedisTemplate;
+    private final GroupService groupService;
 
     @Override
     public UserResponseDTO getUserByUsername(String username) {
@@ -75,12 +77,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
                     throw new ClientException(USER_EXIST);
                 }
                 userRegisterCachePenetrationBloomFilter.add(requestParam.getUsername());
+                groupService.saveGroup("默认分组");
+
                 return;
             }
             throw new ClientException(USER_NAME_EXIST);
         } finally {
             lock.unlock();
         }
+
 
     }
 
