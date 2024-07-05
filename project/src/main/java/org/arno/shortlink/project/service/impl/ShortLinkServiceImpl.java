@@ -81,8 +81,8 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
         }
         shortUriCreateCachePenetrationBloomFilter.add(fullShortUrl);
         return ShortLinkCreateRespDTO.builder()
+                .fullShortUrl("http://" + shortLinkDO.getFullShortUrl())
                 .originUrl(requestParam.getOriginUrl())
-                .fullShortUrl(requestParam.getDomainProtocol() + shortLinkDO.getFullShortUrl())
                 .gid(shortLinkDO.getGid())
                 .build();
     }
