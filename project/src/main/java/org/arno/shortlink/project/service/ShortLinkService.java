@@ -2,6 +2,8 @@ package org.arno.shortlink.project.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import org.arno.shortlink.project.dao.entity.ShortLinkDO;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
@@ -21,4 +23,6 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
 
     List<ShortLinkGroupCountQueryRespDTO> listGroupShortLinkCount(List<String> requestParam);
+
+    void restoreUrl(String shortUri, ServletRequest request, ServletResponse response);
 }
