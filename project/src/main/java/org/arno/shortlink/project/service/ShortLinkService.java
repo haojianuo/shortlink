@@ -11,7 +11,6 @@ import org.arno.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
