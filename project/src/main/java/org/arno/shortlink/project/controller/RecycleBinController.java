@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.project.common.convention.result.Result;
 import org.arno.shortlink.project.common.convention.result.Results;
-import org.arno.shortlink.project.dto.req.RecycleBinRecoverReqDTO;
-import org.arno.shortlink.project.dto.req.RecycleBinSaveReqDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
+import org.arno.shortlink.project.dto.req.*;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.RecycleBinService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,4 +44,13 @@ public class RecycleBinController {
         recycleBinService.recoverRecycleBin(requestParam);
         return Results.success();
     }
+    /**
+     * 移除短链接
+     */
+    @PostMapping("/api/short-link/v1/recycle-bin/remove")
+    public Result<Void> removeRecycleBin(@RequestBody RecycleBinRemoveReqDTO requestParam) {
+        recycleBinService.removeRecycleBin(requestParam);
+        return Results.success();
+    }
+
 }
