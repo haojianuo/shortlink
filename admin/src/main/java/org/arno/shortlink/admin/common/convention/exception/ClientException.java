@@ -7,7 +7,6 @@ import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
  * 客户端异常
  */
 public class ClientException extends AbstractException {
-
     public ClientException(IErrorCode errorCode) {
         this(null, null, errorCode);
     }
@@ -32,4 +31,3 @@ public class ClientException extends AbstractException {
                 '}';
     }
 }
-

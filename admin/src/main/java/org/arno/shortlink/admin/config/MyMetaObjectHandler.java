@@ -6,19 +6,20 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * MyBatis-Plus 原数据自动填充类
+ */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        strictInsertFill(metaObject, "createTime", Date::new, Date.class); // 起始版本 3.3.3(推荐)
-        strictInsertFill(metaObject, "updateTime", Date::new, Date.class); // 起始版本 3.3.3(推荐)
-        strictInsertFill(metaObject, "delFlag", () -> 0, Integer.class); // 起始版本 3.3.3(推荐)
-
+        strictInsertFill(metaObject, "createTime", Date::new, Date.class);
+        strictInsertFill(metaObject, "updateTime", Date::new, Date.class);
+        strictInsertFill(metaObject, "delFlag", () -> 0, Integer.class);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        strictUpdateFill(metaObject, "updateTime", Date::new, Date.class); // 起始版本 3.3.3(推荐)
-
+        strictInsertFill(metaObject, "updateTime", Date::new, Date.class);
     }
 }

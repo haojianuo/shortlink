@@ -1,6 +1,5 @@
 package org.arno.shortlink.project.common.web;
 
-
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,13 +21,11 @@ import java.util.Optional;
 
 /**
  * 全局异常处理器
- *
  */
 @Component
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     /**
      * 拦截参数验证异常
      */

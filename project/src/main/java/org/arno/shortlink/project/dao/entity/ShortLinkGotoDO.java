@@ -15,17 +15,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShortLinkGotoDO {
-
     /**
      * ID
      */
     private Long id;
-
     /**
      * 分组标识
      */
     private String gid;
-
     /**
      * 完整短链接
      */

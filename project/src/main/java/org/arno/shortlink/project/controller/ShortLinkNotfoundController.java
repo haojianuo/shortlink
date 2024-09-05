@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class ShortLinkNotfoundController {
-
     /**
      * 短链接不存在跳转页面
      */

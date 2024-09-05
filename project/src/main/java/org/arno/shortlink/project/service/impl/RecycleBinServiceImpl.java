@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.project.dao.entity.ShortLinkDO;
 import org.arno.shortlink.project.dao.mapper.ShortLinkMapper;
 import org.arno.shortlink.project.dto.req.RecycleBinRecoverReqDTO;
@@ -14,8 +15,6 @@ import org.arno.shortlink.project.dto.req.RecycleBinSaveReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.RecycleBinService;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,6 @@ import static org.arno.shortlink.project.common.constant.RedisKeyConstant.GOTO_S
 @Service
 @RequiredArgsConstructor
 public class RecycleBinServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLinkDO> implements RecycleBinService {
-
     private final StringRedisTemplate stringRedisTemplate;
 
     @Override

@@ -9,12 +9,10 @@ import org.arno.shortlink.project.dto.req.RecycleBinSaveReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 
-
 /**
  * 回收站管理接口层
  */
 public interface RecycleBinService extends IService<ShortLinkDO> {
-
     /**
      * 保存回收站
      *
@@ -31,11 +29,12 @@ public interface RecycleBinService extends IService<ShortLinkDO> {
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkRecycleBinPageReqDTO requestParam);
 
     /**
-     * 恢复短链接
+     * 从回收站恢复短链接
      *
-     * @param requestParam 请求参数
+     * @param requestParam 恢复短链接请求参数
      */
     void recoverRecycleBin(RecycleBinRecoverReqDTO requestParam);
+
     /**
      * 从回收站移除短链接
      *

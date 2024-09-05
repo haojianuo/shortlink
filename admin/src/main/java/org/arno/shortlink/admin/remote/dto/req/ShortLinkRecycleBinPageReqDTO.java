@@ -1,7 +1,7 @@
 package org.arno.shortlink.admin.remote.dto.req;
 
-import lombok.Data;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import java.util.List;
  */
 @Data
 public class ShortLinkRecycleBinPageReqDTO extends Page {
-
     /**
      * 分组标识
      */

@@ -7,7 +7,6 @@ import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
  * 远程服务调用异常
  */
 public class RemoteException extends AbstractException {
-
     public RemoteException(String message) {
         this(message, null, BaseErrorCode.REMOTE_ERROR);
     }

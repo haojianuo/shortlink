@@ -1,4 +1,5 @@
 package org.arno.shortlink.admin.common.biz.user;
+
 import com.alibaba.ttl.TransmittableThreadLocal;
 
 import java.util.Optional;
@@ -7,7 +8,9 @@ import java.util.Optional;
  * 用户上下文
  */
 public final class UserContext {
-
+    /**
+     * <a href="https://github.com/alibaba/transmittable-thread-local" />
+     */
     private static final ThreadLocal<UserInfoDTO> USER_THREAD_LOCAL = new TransmittableThreadLocal<>();
 
     /**
@@ -48,7 +51,6 @@ public final class UserContext {
         UserInfoDTO userInfoDTO = USER_THREAD_LOCAL.get();
         return Optional.ofNullable(userInfoDTO).map(UserInfoDTO::getRealName).orElse(null);
     }
-
 
     /**
      * 清理用户上下文

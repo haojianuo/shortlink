@@ -1,13 +1,13 @@
 package org.arno.shortlink.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
 import org.arno.shortlink.admin.common.convention.result.Results;
-import org.arno.shortlink.admin.dto.request.RecycleBinRecoverReqDTO;
-import org.arno.shortlink.admin.remote.dto.req.RecycleBinRemoveReqDTO;
-import org.arno.shortlink.admin.remote.dto.req.RecycleBinSaveReqDTO;
+import org.arno.shortlink.admin.dto.req.RecycleBinRecoverReqDTO;
+import org.arno.shortlink.admin.dto.req.RecycleBinRemoveReqDTO;
+import org.arno.shortlink.admin.dto.req.RecycleBinSaveReqDTO;
 import org.arno.shortlink.admin.remote.ShortLinkRemoteService;
-import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.admin.service.RecycleBinService;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RecycleBinController {
     private final RecycleBinService recycleBinService;
-
     /**
      * 后续重构为 SpringCloud Feign 调用
      */
@@ -46,6 +45,7 @@ public class RecycleBinController {
     public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkRecycleBinPageReqDTO requestParam) {
         return recycleBinService.pageRecycleBinShortLink(requestParam);
     }
+
     /**
      * 恢复短链接
      */
@@ -54,6 +54,7 @@ public class RecycleBinController {
         shortLinkRemoteService.recoverRecycleBin(requestParam);
         return Results.success();
     }
+
     /**
      * 移除短链接
      */

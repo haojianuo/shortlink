@@ -1,8 +1,6 @@
 package org.arno.shortlink.admin.common.convention.result;
 
-
 import org.arno.shortlink.admin.common.convention.errorcode.BaseErrorCode;
-import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
 import org.arno.shortlink.admin.common.convention.exception.AbstractException;
 
 import java.util.Optional;
@@ -11,7 +9,6 @@ import java.util.Optional;
  * 全局返回对象构造器
  */
 public final class Results {
-
     /**
      * 构造成功响应
      */

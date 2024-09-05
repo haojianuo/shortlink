@@ -1,7 +1,7 @@
 package org.arno.shortlink.project.service.impl;
 
-import org.arno.shortlink.project.service.UrlTitleService;
 import lombok.SneakyThrows;
+import org.arno.shortlink.project.service.UrlTitleService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import java.net.URL;
  */
 @Service
 public class UrlTitleServiceImpl implements UrlTitleService {
-
     @SneakyThrows
     @Override
     public String getTitleByUrl(String url) {

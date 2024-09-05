@@ -1,9 +1,9 @@
 package org.arno.shortlink.project.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.project.common.convention.result.Result;
 import org.arno.shortlink.project.common.convention.result.Results;
 import org.arno.shortlink.project.service.UrlTitleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class UrlTitleController {
-
     private final UrlTitleService urlTitleService;
 
     /**

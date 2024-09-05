@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  */
 @Configuration
 public class UserConfiguration {
-
     /**
      * 用户信息传递过滤器
      */
@@ -24,4 +23,3 @@ public class UserConfiguration {
         return registration;
     }
 }
-

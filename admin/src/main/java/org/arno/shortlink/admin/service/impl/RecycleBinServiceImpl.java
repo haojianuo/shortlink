@@ -11,7 +11,6 @@ import org.arno.shortlink.admin.common.convention.result.Result;
 import org.arno.shortlink.admin.dao.entity.GroupDO;
 import org.arno.shortlink.admin.dao.mapper.GroupMapper;
 import org.arno.shortlink.admin.remote.ShortLinkRemoteService;
-
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.admin.service.RecycleBinService;
@@ -26,13 +25,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecycleBinServiceImpl implements RecycleBinService {
     private final GroupMapper groupMapper;
-
     /**
      * 后续重构为 SpringCloud Feign 调用
      */
     ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {
     };
-
 
     @Override
     public Result<IPage<ShortLinkPageRespDTO>> pageRecycleBinShortLink(ShortLinkRecycleBinPageReqDTO requestParam) {

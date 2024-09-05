@@ -15,9 +15,7 @@ import java.util.Optional;
  */
 @Getter
 public abstract class AbstractException extends RuntimeException {
-
     public final String errorCode;
-
     public final String errorMessage;
 
     public AbstractException(String message, Throwable throwable, IErrorCode errorCode) {

@@ -1,6 +1,7 @@
 package org.arno.shortlink.admin.common.convention.exception;
-import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
+
 import lombok.Getter;
+import org.arno.shortlink.admin.common.convention.errorcode.IErrorCode;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
@@ -14,9 +15,7 @@ import java.util.Optional;
  */
 @Getter
 public abstract class AbstractException extends RuntimeException {
-
     public final String errorCode;
-
     public final String errorMessage;
 
     public AbstractException(String message, Throwable throwable, IErrorCode errorCode) {

@@ -1,4 +1,5 @@
 package org.arno.shortlink.project.common.convention.exception;
+
 import org.arno.shortlink.project.common.convention.errorcode.BaseErrorCode;
 import org.arno.shortlink.project.common.convention.errorcode.IErrorCode;
 
@@ -8,7 +9,6 @@ import java.util.Optional;
  * 服务端异常
  */
 public class ServiceException extends AbstractException {
-
     public ServiceException(String message) {
         this(message, null, BaseErrorCode.SERVICE_ERROR);
     }
@@ -33,4 +33,3 @@ public class ServiceException extends AbstractException {
                 '}';
     }
 }
-

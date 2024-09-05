@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.project.common.convention.result.Result;
 import org.arno.shortlink.project.common.convention.result.Results;
-import org.arno.shortlink.project.dto.req.*;
+import org.arno.shortlink.project.dto.req.RecycleBinRecoverReqDTO;
+import org.arno.shortlink.project.dto.req.RecycleBinRemoveReqDTO;
+import org.arno.shortlink.project.dto.req.RecycleBinSaveReqDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.project.service.RecycleBinService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class RecycleBinController {
-
     private final RecycleBinService recycleBinService;
 
     /**
@@ -29,6 +31,7 @@ public class RecycleBinController {
         recycleBinService.saveRecycleBin(requestParam);
         return Results.success();
     }
+
     /**
      * 分页查询回收站短链接
      */
@@ -36,6 +39,7 @@ public class RecycleBinController {
     public Result<IPage<ShortLinkPageRespDTO>> pageShortLink(ShortLinkRecycleBinPageReqDTO requestParam) {
         return Results.success(recycleBinService.pageShortLink(requestParam));
     }
+
     /**
      * 恢复短链接
      */
@@ -44,6 +48,7 @@ public class RecycleBinController {
         recycleBinService.recoverRecycleBin(requestParam);
         return Results.success();
     }
+
     /**
      * 移除短链接
      */
@@ -52,5 +57,4 @@ public class RecycleBinController {
         recycleBinService.removeRecycleBin(requestParam);
         return Results.success();
     }
-
 }

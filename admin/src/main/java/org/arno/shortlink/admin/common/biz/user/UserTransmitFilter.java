@@ -24,13 +24,11 @@ import static org.arno.shortlink.admin.common.enums.UserErrorCodeEnum.USER_TOKEN
  */
 @RequiredArgsConstructor
 public class UserTransmitFilter implements Filter {
-
-    private final StringRedisTemplate stringRedisTemplate;
-
     private static final List<String> IGNORE_URI = Lists.newArrayList(
             "/api/short-link/admin/v1/user/login",
             "/api/short-link/admin/v1/user/has-username"
     );
+    private final StringRedisTemplate stringRedisTemplate;
 
     @SneakyThrows
     @Override
@@ -74,7 +72,6 @@ public class UserTransmitFilter implements Filter {
         try {
             writer = response.getWriter();
             writer.print(json);
-
         } catch (IOException e) {
         } finally {
             if (writer != null)
