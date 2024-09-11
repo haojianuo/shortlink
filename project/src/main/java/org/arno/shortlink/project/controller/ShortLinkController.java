@@ -6,9 +6,11 @@ import jakarta.servlet.ServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.project.common.convention.result.Result;
 import org.arno.shortlink.project.common.convention.result.Results;
+import org.arno.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
+import org.arno.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -48,6 +50,14 @@ public class ShortLinkController {
     public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
         shortLinkService.updateShortLink(requestParam);
         return Results.success();
+    }
+
+    /**
+     * 批量创建短链接
+     */
+    @PostMapping("/api/short-link/v1/create/batch")
+    public Result<ShortLinkBatchCreateRespDTO> batchCreateShortLink(@RequestBody ShortLinkBatchCreateReqDTO requestParam) {
+        return Results.success(shortLinkService.batchCreateShortLink(requestParam));
     }
 
     /**

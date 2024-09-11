@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import org.arno.shortlink.project.dao.entity.ShortLinkDO;
+import org.arno.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
 import org.arno.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
+import org.arno.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
@@ -41,6 +43,13 @@ public interface ShortLinkService extends IService<ShortLinkDO> {
      */
     IPage<ShortLinkPageRespDTO> pageShortLink(ShortLinkPageReqDTO requestParam);
 
+    /**
+     * 批量创建短链接
+     *
+     * @param requestParam 批量创建短链接请求参数
+     * @return 批量创建短链接返回参数
+     */
+    ShortLinkBatchCreateRespDTO batchCreateShortLink(ShortLinkBatchCreateReqDTO requestParam);
     /**
      * 查询短链接分组内数量
      *
