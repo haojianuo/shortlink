@@ -13,45 +13,6 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.arno.shortlink.project.common.convention.exception.ClientException;
-import org.arno.shortlink.project.common.convention.exception.ServiceException;
-import org.arno.shortlink.project.common.enums.VailDateTypeEnum;
-import org.arno.shortlink.project.config.GotoDomainWhiteListConfiguration;
-import org.arno.shortlink.project.dao.entity.LinkAccessLogsDO;
-import org.arno.shortlink.project.dao.entity.LinkAccessStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkBrowserStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkDeviceStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkLocaleStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkNetworkStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkOsStatsDO;
-import org.arno.shortlink.project.dao.entity.LinkStatsTodayDO;
-import org.arno.shortlink.project.dao.entity.ShortLinkDO;
-import org.arno.shortlink.project.dao.entity.ShortLinkGotoDO;
-import org.arno.shortlink.project.dao.mapper.LinkAccessLogsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkAccessStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkBrowserStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkDeviceStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkLocaleStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkNetworkStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkOsStatsMapper;
-import org.arno.shortlink.project.dao.mapper.LinkStatsTodayMapper;
-import org.arno.shortlink.project.dao.mapper.ShortLinkGotoMapper;
-import org.arno.shortlink.project.dao.mapper.ShortLinkMapper;
-import org.arno.shortlink.project.dto.biz.ShortLinkStatsRecordDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
-import org.arno.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
-import org.arno.shortlink.project.dto.resp.ShortLinkBaseInfoRespDTO;
-import org.arno.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
-import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
-import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
-import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
-import org.arno.shortlink.project.mq.producer.ShortLinkStatsSaveProducer;
-import org.arno.shortlink.project.service.LinkStatsTodayService;
-import org.arno.shortlink.project.service.ShortLinkService;
-import org.arno.shortlink.project.toolkit.HashUtil;
-import org.arno.shortlink.project.toolkit.LinkUtil;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
@@ -60,6 +21,23 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.arno.shortlink.project.common.convention.exception.ClientException;
+import org.arno.shortlink.project.common.convention.exception.ServiceException;
+import org.arno.shortlink.project.common.enums.VailDateTypeEnum;
+import org.arno.shortlink.project.config.GotoDomainWhiteListConfiguration;
+import org.arno.shortlink.project.dao.entity.*;
+import org.arno.shortlink.project.dao.mapper.*;
+import org.arno.shortlink.project.dto.biz.ShortLinkStatsRecordDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkBatchCreateReqDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkCreateReqDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkPageReqDTO;
+import org.arno.shortlink.project.dto.req.ShortLinkUpdateReqDTO;
+import org.arno.shortlink.project.dto.resp.*;
+import org.arno.shortlink.project.mq.producer.ShortLinkStatsSaveProducer;
+import org.arno.shortlink.project.service.LinkStatsTodayService;
+import org.arno.shortlink.project.service.ShortLinkService;
+import org.arno.shortlink.project.toolkit.HashUtil;
+import org.arno.shortlink.project.toolkit.LinkUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -75,14 +53,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -149,13 +120,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
             baseMapper.insert(shortLinkDO);
             shortLinkGotoMapper.insert(linkGotoDO);
         } catch (DuplicateKeyException ex) {
-            LambdaQueryWrapper<ShortLinkDO> queryWrapper = Wrappers.lambdaQuery(ShortLinkDO.class)
-                    .eq(ShortLinkDO::getFullShortUrl, fullShortUrl);
-            ShortLinkDO hasShortLinkDO = baseMapper.selectOne(queryWrapper);
-            if (hasShortLinkDO != null) {
-                log.warn("短链接：{} 重复入库", fullShortUrl);
-                throw new ServiceException("短链接生成重复");
-            }
+            throw new ServiceException(String.format("短链接：%s 生成重复", fullShortUrl));
         }
         stringRedisTemplate.opsForValue().set(
                 String.format(GOTO_SHORT_LINK_KEY, fullShortUrl),
@@ -511,7 +476,7 @@ public class ShortLinkServiceImpl extends ServiceImpl<ShortLinkMapper, ShortLink
                 throw new ServiceException("短链接频繁生成，请稍后再试");
             }
             String originUrl = requestParam.getOriginUrl();
-            originUrl += System.currentTimeMillis();
+            originUrl += UUID.randomUUID().toString();
             shorUri = HashUtil.hashToBase62(originUrl);
             if (!shortUriCreateCachePenetrationBloomFilter.contains(createShortLinkDefaultDomain + "/" + shorUri)) {
                 break;
