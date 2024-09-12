@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.exception.ClientException;
+import org.arno.shortlink.admin.common.convention.exception.ServiceException;
 import org.arno.shortlink.admin.common.enums.UserErrorCodeEnum;
 import org.arno.shortlink.admin.dao.entity.UserDO;
 import org.arno.shortlink.admin.dao.mapper.UserMapper;
@@ -51,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
                 .eq(UserDO::getUsername, username);
         UserDO userDO = baseMapper.selectOne(queryWrapper);
         if (userDO == null) {
-            throw new ClientException(UserErrorCodeEnum.USER_NULL);
+            throw new ServiceException(UserErrorCodeEnum.USER_NULL);
         }
         UserRespDTO result = new UserRespDTO();
         BeanUtils.copyProperties(userDO, result);
