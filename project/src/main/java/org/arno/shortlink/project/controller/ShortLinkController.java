@@ -1,5 +1,6 @@
 package org.arno.shortlink.project.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -14,6 +15,7 @@ import org.arno.shortlink.project.dto.resp.ShortLinkBatchCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkCreateRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.project.dto.resp.ShortLinkPageRespDTO;
+import org.arno.shortlink.project.handler.CustomBlockHandler;
 import org.arno.shortlink.project.service.ShortLinkService;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +49,11 @@ public class ShortLinkController {
      * 修改短链接
      */
     @PostMapping("/api/short-link/v1/update")
+    @SentinelResource(
+            value = "create_short-link",
+            blockHandler = "createShortLinkBlockHandlerMethod",
+            blockHandlerClass = CustomBlockHandler.class
+    )
     public Result<Void> updateShortLink(@RequestBody ShortLinkUpdateReqDTO requestParam) {
         shortLinkService.updateShortLink(requestParam);
         return Results.success();
