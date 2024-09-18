@@ -16,6 +16,7 @@ import org.arno.shortlink.admin.dao.mapper.GroupMapper;
 import org.arno.shortlink.admin.dto.req.ShortLinkGroupSortReqDTO;
 import org.arno.shortlink.admin.dto.req.ShortLinkGroupUpdateReqDTO;
 import org.arno.shortlink.admin.dto.resp.ShortLinkGroupRespDTO;
+import org.arno.shortlink.admin.remote.ShortLinkActualRemoteService;
 import org.arno.shortlink.admin.remote.ShortLinkRemoteService;
 import org.arno.shortlink.admin.remote.dto.resp.ShortLinkGroupCountQueryRespDTO;
 import org.arno.shortlink.admin.service.GroupService;
@@ -40,15 +41,11 @@ import static org.arno.shortlink.admin.common.constant.RedisCacheConstant.LOCK_G
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
 
     private final RedissonClient redissonClient;
+    private final ShortLinkActualRemoteService shortLinkActualRemoteService;
+
 
     @Value("${short-link.group.max-num}")
     private Integer groupMaxNum;
-
-    /**
-     * 后续重构为 SpringCloud Feign 调用
-     */
-    ShortLinkRemoteService shortLinkRemoteService = new ShortLinkRemoteService() {
-    };
 
     @Override
     public void saveGroup(String groupName) {
@@ -90,7 +87,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
                 .eq(GroupDO::getUsername, UserContext.getUsername())
                 .orderByDesc(GroupDO::getSortOrder, GroupDO::getUpdateTime);
         List<GroupDO> groupDOList = baseMapper.selectList(queryWrapper);
-        Result<List<ShortLinkGroupCountQueryRespDTO>> listResult = shortLinkRemoteService
+        Result<List<ShortLinkGroupCountQueryRespDTO>> listResult = shortLinkActualRemoteService
                 .listGroupShortLinkCount(groupDOList.stream().map(GroupDO::getGid).toList());
         List<ShortLinkGroupRespDTO> shortLinkGroupRespDTOList = BeanUtil.copyToList(groupDOList, ShortLinkGroupRespDTO.class);
         shortLinkGroupRespDTOList.forEach(each -> {
