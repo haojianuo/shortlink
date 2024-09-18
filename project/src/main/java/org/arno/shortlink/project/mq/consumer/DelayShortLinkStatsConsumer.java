@@ -4,7 +4,7 @@ package org.arno.shortlink.project.mq.consumer;
 import lombok.extern.slf4j.Slf4j;
 import org.arno.shortlink.project.common.convention.exception.ServiceException;
 import org.arno.shortlink.project.dto.biz.ShortLinkStatsRecordDTO;
-import org.arno.shortlink.project.idempotent.MessageQueueIdempotentHandler;
+import org.arno.shortlink.project.mq.idempotent.MessageQueueIdempotentHandler;
 import org.arno.shortlink.project.service.ShortLinkService;
 import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBlockingDeque;

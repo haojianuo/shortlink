@@ -1,4 +1,4 @@
-package org.arno.shortlink.project.idempotent;
+package org.arno.shortlink.project.mq.idempotent;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;

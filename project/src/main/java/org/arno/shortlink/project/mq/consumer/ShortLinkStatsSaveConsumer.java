@@ -29,7 +29,7 @@ import org.arno.shortlink.project.common.convention.exception.ServiceException;
 import org.arno.shortlink.project.dao.entity.*;
 import org.arno.shortlink.project.dao.mapper.*;
 import org.arno.shortlink.project.dto.biz.ShortLinkStatsRecordDTO;
-import org.arno.shortlink.project.idempotent.MessageQueueIdempotentHandler;
+import org.arno.shortlink.project.mq.idempotent.MessageQueueIdempotentHandler;
 import org.arno.shortlink.project.mq.producer.DelayShortLinkStatsProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
