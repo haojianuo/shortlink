@@ -12,7 +12,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication(scanBasePackages = {
         "org.arno.shortlink.admin",
         "org.arno.shortlink.project",
-        "org.arno.shortlink.aggregation"
 })
 @MapperScan(value = {
         "org.arno.shortlink.project.dao.mapper",
