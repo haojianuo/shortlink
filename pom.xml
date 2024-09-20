@@ -12,6 +12,7 @@
     <modules>
         <module>admin</module>
         <module>project</module>
+        <module>aggregation</module>
         <module>gateway</module>
     </modules>
 

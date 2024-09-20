@@ -1,6 +1,5 @@
 package org.arno.shortlink.admin.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
@@ -9,7 +8,6 @@ import org.arno.shortlink.admin.dto.req.RecycleBinRecoverReqDTO;
 import org.arno.shortlink.admin.dto.req.RecycleBinRemoveReqDTO;
 import org.arno.shortlink.admin.dto.req.RecycleBinSaveReqDTO;
 import org.arno.shortlink.admin.remote.ShortLinkActualRemoteService;
-import org.arno.shortlink.admin.remote.ShortLinkRemoteService;
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkRecycleBinPageReqDTO;
 import org.arno.shortlink.admin.remote.dto.resp.ShortLinkPageRespDTO;
 import org.arno.shortlink.admin.service.RecycleBinService;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 回收站管理控制层
  */
-@RestController
+@RestController(value = "recycleBinControllerByAdmin")
 @RequiredArgsConstructor
 public class RecycleBinController {
     private final RecycleBinService recycleBinService;

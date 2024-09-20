@@ -1,11 +1,9 @@
 package org.arno.shortlink.admin.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.arno.shortlink.admin.common.convention.result.Result;
 import org.arno.shortlink.admin.remote.ShortLinkActualRemoteService;
-import org.arno.shortlink.admin.remote.ShortLinkRemoteService;
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkGroupStatsAccessRecordReqDTO;
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkGroupStatsReqDTO;
 import org.arno.shortlink.admin.remote.dto.req.ShortLinkStatsAccessRecordReqDTO;
@@ -15,7 +13,7 @@ import org.arno.shortlink.admin.remote.dto.resp.ShortLinkStatsRespDTO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController(value = "shortLinkStatsControllerByAdmin")
 @RequiredArgsConstructor
 public class ShortLinkStatsController {
     private final ShortLinkActualRemoteService shortLinkActualRemoteService;

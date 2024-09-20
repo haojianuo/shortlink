@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 布隆过滤器配置
  */
-@Configuration
+@Configuration(value = "rBloomFilterConfigurationByAdmin")
 public class RBloomFilterConfiguration {
     /**
      * 防止用户注册查询数据库的布隆过滤器
